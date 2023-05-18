@@ -6,24 +6,43 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _speed;
     [Range(1,3)]
     [SerializeField] private float _mouseSensitive;
+
+    private float horizontalInput;
+    private float verticalInput;
+
     private void Update() 
     {
-        float horizontalInput = Input.GetAxis("Mouse X");
-        float verticalInput = Input.GetAxis("Mouse Y");
+        float horizontalinput = Input.GetAxis("Mouse X");
+        float verticalinput = Input.GetAxis("Mouse Y");
 
-        transform.eulerAngles -= new Vector3 (0f, horizontalInput, 0f);
+        transform.eulerAngles -= new Vector3 (0f, horizontalinput, 0f);
 
     }
     private void FixedUpdate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+         horizontalInput = Input.GetAxis("Horizontal");
+         verticalInput = Input.GetAxis("Vertical");
 
-        LocalMover(transform.forward, verticalInput);
+        // _rigidbody.velocity = transform.forward * horizontalInput *(_speed * Time.deltaTime);
+
+        // LocalMover(transform.right, horizontalInput);
+        LocalMover(transform.forward, transform.right, verticalInput, horizontalInput);
+        
 
     }
-    private void LocalMover(Vector3 direction, float input)
+    private void LocalMover(Vector3 direction,Vector3 direction1, float input, float input1)
     {
-        _rigidbody.velocity = direction * input *(_speed * Time.fixedDeltaTime);
+        // if(input == horizontalInput)
+        // {
+        //     _rigidbody.velocity = direction * input *(_speed * Time.fixedDeltaTime);
+        // }
+        // else if(input1 == verticalInput)
+        // {
+        //     _rigidbody.velocity = direction1 * input1 *(_speed * Time.fixedDeltaTime);
+        // }
+        _rigidbody.velocity = Vector3.Cross(direction, direction1) * input1 *(_speed * Time.fixedDeltaTime);
+        // _rigidbody.velocity = direction1 * input1 *(_speed * Time.fixedDeltaTime);
+        
     }
+    
 }

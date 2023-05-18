@@ -1604,7 +1604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 984877321}
-  _speed: 200
+  _speed: 10
   _mouseSensitive: 0
 --- !u!54 &984877321
 Rigidbody:
